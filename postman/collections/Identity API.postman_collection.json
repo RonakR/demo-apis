@@ -1,0 +1,111 @@
+{
+  "info": {
+    "_postman_id": "dbeeee99-c462-44d6-9887-4cc05ed55a10",
+    "name": "Identity API",
+    "description": "API for managing user identities and authentication",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create User",
+      "id": "95d1d1a1-8c8f-4800-94f2-7aeb62b94fed",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"test\",\n  \"email\": \"test@example.com\"\n}"
+        },
+        "url": {
+          "raw": "{{identityApiUrl}}/users",
+          "host": [
+            "{{identityApiUrl}}"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get User by ID",
+      "id": "499ce084-8eb7-4a49-8e60-c38a1ed1a813",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{identityApiUrl}}/users/:id",
+          "host": [
+            "{{identityApiUrl}}"
+          ],
+          "path": [
+            "users",
+            ":id"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "{{id}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get User by Email",
+      "id": "521bf5bb-bde5-44d1-8eca-06f458eb496c",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{identityApiUrl}}/users?email=",
+          "host": [
+            "{{identityApiUrl}}"
+          ],
+          "path": [
+            "users"
+          ],
+          "query": [
+            {
+              "key": "email",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Health Check",
+      "id": "aab7fe06-7349-437b-99b4-5dc36e022315",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{identityApiUrl}}/health",
+          "host": [
+            "{{identityApiUrl}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "id": "79e18481-d0d0-4602-a5ef-9c3bbeacd076",
+      "key": "identityApiUrl",
+      "value": "http://localhost:3001"
+    }
+  ]
+}

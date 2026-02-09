@@ -1,0 +1,175 @@
+{
+  "info": {
+    "_postman_id": "7ac11f76-1eef-45fd-9e9f-248ddbe2ab67",
+    "name": "Accounts API",
+    "description": "API for managing user accounts and financial operations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Account",
+      "id": "2b5dc688-190c-4978-9a60-8285fe52e76c",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"u1\",\n  \"type\": \"standard\"\n}"
+        },
+        "url": {
+          "raw": "{{accountsApiUrl}}/accounts",
+          "host": [
+            "{{accountsApiUrl}}"
+          ],
+          "path": [
+            "accounts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Account by ID",
+      "id": "71a9dbca-c65b-4799-81b3-28df34e1d3a8",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{accountsApiUrl}}/accounts/:id",
+          "host": [
+            "{{accountsApiUrl}}"
+          ],
+          "path": [
+            "accounts",
+            ":id"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "{{id}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Accounts by User ID",
+      "id": "c8b2e7d0-baf5-40dc-bb03-5936d8c0a7ac",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{accountsApiUrl}}/accounts?userId=u1",
+          "host": [
+            "{{accountsApiUrl}}"
+          ],
+          "path": [
+            "accounts"
+          ],
+          "query": [
+            {
+              "key": "userId",
+              "value": "u1",
+              "uuid": "84617655-ac3b-49db-ae2e-d36a67997f25"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Credit Account",
+      "id": "d37f91f9-8cf6-4f53-b970-a4399401482c",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 0\n}"
+        },
+        "url": {
+          "raw": "{{accountsApiUrl}}/accounts/:id/credit",
+          "host": [
+            "{{accountsApiUrl}}"
+          ],
+          "path": [
+            "accounts",
+            ":id",
+            "credit"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "{{id}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Onboard Account",
+      "id": "a2931e7f-60bc-417c-956a-1e5e25184880",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"test\",\n  \"email\":  \"test@example.com\",\n  \"productId\": \"p1\",\n  \"initialCredit\": 10\n}"
+        },
+        "url": {
+          "raw": "{{accountsApiUrl}}/accounts/onboard",
+          "host": [
+            "{{accountsApiUrl}}"
+          ],
+          "path": [
+            "accounts",
+            "onboard"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Health Check",
+      "id": "24fdf6d1-f7b1-4e1f-b056-9491e487f6f1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{accountsApiUrl}}/health",
+          "host": [
+            "{{accountsApiUrl}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "id": "60e0851e-b31f-457f-b2f5-51f205f06ef4",
+      "key": "accountsApiUrl",
+      "value": "http://localhost:3002"
+    }
+  ]
+}

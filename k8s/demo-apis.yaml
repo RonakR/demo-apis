@@ -1,0 +1,123 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo-apis
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: identity-api
+  namespace: demo-apis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: identity-api
+  template:
+    metadata:
+      labels:
+        app: identity-api
+    spec:
+      containers:
+        - name: identity-api
+          image: identity-api:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3001
+          env:
+            - name: PORT
+              value: "3001"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: identity-api
+  namespace: demo-apis
+spec:
+  selector:
+    app: identity-api
+  ports:
+    - port: 3001
+      targetPort: 3001
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: accounts-api
+  namespace: demo-apis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: accounts-api
+  template:
+    metadata:
+      labels:
+        app: accounts-api
+    spec:
+      containers:
+        - name: accounts-api
+          image: accounts-api:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3002
+          env:
+            - name: PORT
+              value: "3002"
+            - name: IDENTITY_BASE_URL
+              value: "http://identity-api:3001"
+            - name: CATALOG_BASE_URL
+              value: "http://catalog-api:3003"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: accounts-api
+  namespace: demo-apis
+spec:
+  selector:
+    app: accounts-api
+  ports:
+    - port: 3002
+      targetPort: 3002
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog-api
+  namespace: demo-apis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: catalog-api
+  template:
+    metadata:
+      labels:
+        app: catalog-api
+    spec:
+      containers:
+        - name: catalog-api
+          image: catalog-api:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3003
+          env:
+            - name: PORT
+              value: "3003"
+            - name: ACCOUNTS_BASE_URL
+              value: "http://accounts-api:3002"
+            - name: CHARGE_ON_ASSIGN
+              value: "false"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalog-api
+  namespace: demo-apis
+spec:
+  selector:
+    app: catalog-api
+  ports:
+    - port: 3003
+      targetPort: 3003

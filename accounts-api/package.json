@@ -1,0 +1,13 @@
+{
+  "name": "accounts-api",
+  "version": "1.0.0",
+  "description": "Demo accounts service",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

@@ -1,0 +1,30 @@
+services:
+  identity-api:
+    build: ./identity-api
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+
+  accounts-api:
+    build: ./accounts-api
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+      - IDENTITY_BASE_URL=http://identity-api:3001
+      - CATALOG_BASE_URL=http://catalog-api:3003
+    depends_on:
+      - identity-api
+      - catalog-api
+
+  catalog-api:
+    build: ./catalog-api
+    ports:
+      - "3003:3003"
+    environment:
+      - PORT=3003
+      - ACCOUNTS_BASE_URL=http://accounts-api:3002
+      - CHARGE_ON_ASSIGN=false
+    depends_on:
+      - accounts-api
