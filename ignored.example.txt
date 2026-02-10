@@ -1,0 +1,6 @@
+export IDENTITY_PROJECT_ID="svc_xxxxxxxxxx"
+export ACCOUNTS_PROJECT_ID="svc_yyyyyyyyyy"
+export CATALOG_PROJECT_ID="svc_zzzzzzzzzz"
+export POSTMAN_API_KEY="PMAK_xxxxxxxxxx"
+export POSTMAN_WORKSPACE_ID=
+export POSTMAN_SYSTEM_ENV=

@@ -9,6 +9,9 @@
     {
       "name": "Create Product",
       "id": "80cbca20-0828-4f5b-9ee4-32f183353069",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "method": "POST",
         "header": [
@@ -36,6 +39,9 @@
     {
       "name": "Get Product by ID",
       "id": "a5b7f075-5387-456b-85bc-f09b62ac7fda",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "method": "GET",
         "header": [],
@@ -50,6 +56,7 @@
           ],
           "variable": [
             {
+              "id": "ff4bc029-b01f-4fb8-a6f0-300bce5e6fa9",
               "key": "id",
               "value": "{{id}}"
             }
@@ -61,6 +68,9 @@
     {
       "name": "Get Products by Category",
       "id": "f91304f7-18bb-4d42-8b47-5f7775101168",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "method": "GET",
         "header": [],
@@ -85,6 +95,9 @@
     {
       "name": "Assign Product to Account",
       "id": "bb1667ed-f805-445d-b56b-f8d661ee4d99",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "method": "POST",
         "header": [
@@ -109,6 +122,7 @@
           ],
           "variable": [
             {
+              "id": "82068186-0a57-4eb3-b83b-082f27ba9c2b",
               "key": "id",
               "value": "{{id}}"
             }
@@ -120,6 +134,9 @@
     {
       "name": "Get Assignments by Account ID",
       "id": "bdd53346-6c4a-40f2-b807-9a0773f2f8ee",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "method": "GET",
         "header": [],
@@ -144,6 +161,9 @@
     {
       "name": "Health Check",
       "id": "590f0cde-d9b7-4e8f-824b-6cf3eecae13f",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "method": "GET",
         "header": [],

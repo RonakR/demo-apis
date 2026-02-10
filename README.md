@@ -71,39 +71,92 @@ docker compose up --build
 
 ### kind / Kubernetes
 
-Create Kind cluster
-```
-kind create cluster --name demo --config kind-config.yaml
-kubectl cluster-info --context kind-demo
-```
+Use the scripts below for the full local k8s flow. They create the kind
+cluster, install ingress-nginx, build/load images, and apply `k8s/apps.yaml`.
 
-Add NGINX ingress controller
-```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
-kubectl wait --namespace ingress-nginx \
-  --for=condition=Ready pod \
-  --selector=app.kubernetes.io/component=controller \
-  --timeout=180s
-```
-
-Build images, load into kind, then apply manifests:
+Quick start:
 
 ```
-docker build -t identity-api:dev ./identity-api
-docker build -t accounts-api:dev ./accounts-api
-docker build -t catalog-api:dev ./catalog-api
-
-kind load docker-image identity-api:dev --name identity
-kind load docker-image accounts-api:dev --name accounts
-kind load docker-image catalog-api:dev --name catalog
-
-kubectl apply -f apps.yaml
-kubectl -n demo get pods,svc,ingress
+./run-demo.sh
 ```
 
-Healthcheck on services
+Then hit ingress endpoints:
+
 ```
 curl -i http://localhost/identity/health
 curl -i http://localhost/accounts/health
 curl -i http://localhost/catalog/health
 ```
+
+#### `run-demo.sh` (no Insights)
+
+```
+./run-demo.sh
+```
+
+Optional args (env vars):
+
+- `CLUSTER_NAME` (default: `demo`)
+- `IDENTITY_DIR`, `ACCOUNTS_DIR`, `CATALOG_DIR`
+- `IDENTITY_IMG`, `ACCOUNTS_IMG`, `CATALOG_IMG` (default: `*:dev`)
+- `FORCE_REBUILD=1` to always rebuild images
+
+#### `run-demo-with-insights.sh`
+
+```
+export IDENTITY_PROJECT_ID="svc_xxxxxxxxxx"
+export ACCOUNTS_PROJECT_ID="svc_yyyyyyyyyy"
+export CATALOG_PROJECT_ID="svc_zzzzzzzzzz"
+export POSTMAN_API_KEY="PMAK_xxxxxxxxxx"
+
+./run-demo-with-insights.sh
+```
+
+Optional args (env vars):
+
+- `CLUSTER_NAME` (default: `demo`)
+- `IDENTITY_DIR`, `ACCOUNTS_DIR`, `CATALOG_DIR`
+- `IDENTITY_IMG`, `ACCOUNTS_IMG`, `CATALOG_IMG`
+- `FORCE_REBUILD=1`
+- `KIND_CONFIG` (default: `./k8s/kind-config.yaml`)
+- `APPS_YAML` (default: `k8s/apps.yaml`)
+- `POSTMAN_DS_URL` (daemonset manifest URL)
+- `POSTMAN_DS_LOCAL` (local path to cache manifest)
+- `NS` (default: `demo`)
+- `DEP_IDENTITY`, `DEP_ACCOUNTS`, `DEP_CATALOG`
+- `INSIGHTS_SECRET_NAME`, `INSIGHTS_SECRET_KEY`
+- `IDENTITY_PROJECT_ID`, `ACCOUNTS_PROJECT_ID`, `CATALOG_PROJECT_ID`
+
+#### `simulate-traffic.sh`
+
+Generates noisy demo traffic against ingress (default `http://localhost`).
+
+```
+./simulate-traffic.sh
+```
+
+Optional args:
+
+- Flags: `-v|--verbose`, `-s|--slow` (~1 req/sec), `--show-body`
+- `BASE` (default: `http://localhost`)
+- Rates (percent): `BAD_REQUEST_RATE`, `ONBOARD_RATE`, `CREDIT_RATE`,
+  `CREATE_PRODUCT_RATE`, `ASSIGN_PRODUCT_RATE`, `READS_RATE`
+- `NO_COLOR=1` to disable ANSI colors
+
+#### `teardown-demo.sh`
+
+```
+./teardown-demo.sh
+./teardown-demo.sh --dry-run
+DELETE_CLUSTER=1 ./teardown-demo.sh
+```
+
+Optional args:
+
+- `CLUSTER_NAME` (default: `demo`)
+- `APPS_YAML` (default: `k8s/apps.yaml`)
+- `POSTMAN_DS_LOCAL` (default: `k8s/postman-insights-agent-daemonset.yaml`)
+- `DEMO_NS` (default: `demo`)
+- `POSTMAN_NS` (default: `postman-insights-namespace`)
+- `INSIGHTS_SECRET_NAME` (default: `postman-insights-secret`)
+- `POSTMAN_VARIANTS=1` and `VARIANT_NS_PREFIX` (default: `postman-insights-`)

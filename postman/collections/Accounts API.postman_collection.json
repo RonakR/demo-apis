@@ -9,6 +9,9 @@
     {
       "name": "Create Account",
       "id": "2b5dc688-190c-4978-9a60-8285fe52e76c",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "method": "POST",
         "header": [
@@ -36,6 +39,9 @@
     {
       "name": "Get Account by ID",
       "id": "71a9dbca-c65b-4799-81b3-28df34e1d3a8",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "method": "GET",
         "header": [],
@@ -50,6 +56,7 @@
           ],
           "variable": [
             {
+              "id": "850e3948-6a97-461e-b3df-8773c1e5fb9f",
               "key": "id",
               "value": "{{id}}"
             }
@@ -61,6 +68,9 @@
     {
       "name": "Get Accounts by User ID",
       "id": "c8b2e7d0-baf5-40dc-bb03-5936d8c0a7ac",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "method": "GET",
         "header": [],
@@ -75,8 +85,7 @@
           "query": [
             {
               "key": "userId",
-              "value": "u1",
-              "uuid": "84617655-ac3b-49db-ae2e-d36a67997f25"
+              "value": "u1"
             }
           ]
         }
@@ -86,6 +95,9 @@
     {
       "name": "Credit Account",
       "id": "d37f91f9-8cf6-4f53-b970-a4399401482c",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "method": "POST",
         "header": [
@@ -110,6 +122,7 @@
           ],
           "variable": [
             {
+              "id": "51f86403-1707-4365-b6fa-e930cb4310d4",
               "key": "id",
               "value": "{{id}}"
             }
@@ -121,6 +134,9 @@
     {
       "name": "Onboard Account",
       "id": "a2931e7f-60bc-417c-956a-1e5e25184880",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "method": "POST",
         "header": [
@@ -149,6 +165,9 @@
     {
       "name": "Health Check",
       "id": "24fdf6d1-f7b1-4e1f-b056-9491e487f6f1",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "method": "GET",
         "header": [],
